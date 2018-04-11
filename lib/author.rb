@@ -22,7 +22,6 @@ class Author
       pub_date = date
     end
     book_information[:publication_date] = pub_date
-    @books << Book.new(book_information)
+    @books << Book.new(book_information) if book_information != nil
   end
-
 end
