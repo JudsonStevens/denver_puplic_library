@@ -16,7 +16,12 @@ class Author
     book_information[:author_first_name] = @author_data[:first_name]
     book_information[:author_last_name] = @author_data[:last_name]
     book_information[:title] = title
-    book_information[:publication_date] = Time.parse(date).strftime('%m/%d/%Y')
+    if date.split.length != 1
+      pub_date = Time.parse(date).strftime('%m/%d/%Y')
+    else
+      pub_date = date
+    end
+    book_information[:publication_date] = pub_date
     @books << Book.new(book_information)
   end
 
