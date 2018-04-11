@@ -8,10 +8,7 @@ class Library
 
   def add_to_collection(new_book)
     if @books != []
-      if @books.first[0].book_information[:title] != new_book.first.book_information[:title]
-      @books << new_book
-      else
-      end
+      @books << new_book if @books.first[0].book_information[:title] != new_book.first.book_information[:title]
     else
       @books << new_book
     end
