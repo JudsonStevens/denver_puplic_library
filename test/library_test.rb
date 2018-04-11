@@ -77,6 +77,44 @@ class LibraryTest < Minitest::Test
     actual = @l.card_catalogue.first.book_information[:author_last_name]
 
     assert_equal expected, actual
+
+    expected = 'Lee'
+  end
+
+  def test_find_by_author_finds_the_right_book
+    charlotte_bronte = Author.new({first_name: "Charlotte", last_name: "Bronte"})
+    jane_eyre = charlotte_bronte.add_book("Jane Eyre", "October 16, 1847")
+    villette  = charlotte_bronte.add_book("Villette", "1853")
+
+    harper_lee  = Author.new({first_name: "Harper", last_name: "Lee"})
+    mockingbird = harper_lee.add_book("To Kill a Mockingbird", "July 11, 1960")
+
+    @l.add_to_collection(jane_eyre)
+    @l.add_to_collection(villette)
+    @l.add_to_collection(mockingbird)
+
+    expected = 'To Kill a Mockingbird'
+    actual = @l.find_by_author('Harper Lee').book_information[:title]
+
+    assert_equal expected, actual
+  end
+
+  def test_it_can_find_by_publication_date
+    charlotte_bronte = Author.new({first_name: "Charlotte", last_name: "Bronte"})
+    jane_eyre = charlotte_bronte.add_book("Jane Eyre", "October 16, 1847")
+    villette  = charlotte_bronte.add_book("Villette", "1853")
+
+    harper_lee  = Author.new({first_name: "Harper", last_name: "Lee"})
+    mockingbird = harper_lee.add_book("To Kill a Mockingbird", "July 11, 1960")
+
+    @l.add_to_collection(jane_eyre)
+    @l.add_to_collection(villette)
+    @l.add_to_collection(mockingbird)
+
+    expected = 'Jane Eyre'
+    actual = @l.find_by_publication_date('October 16, 1847').book_information[:title]
+
+    assert_equal expected, actual
   end
 
 end

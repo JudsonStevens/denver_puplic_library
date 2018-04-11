@@ -22,14 +22,6 @@ class Author
       pub_date = date
     end
     book_information[:publication_date] = pub_date
-    book_information = check_duplicates(book_information)
-    require "pry"; binding.pry
     @books << Book.new(book_information) if book_information != nil
-  end
-
-  def check_duplicates(book_information)
-    author_first_names = @books.map{ |book| book.book_information[:author_first_name]}
-    return nil if author_first_names.include?(book_information[:first_name])
-    book_information
   end
 end
